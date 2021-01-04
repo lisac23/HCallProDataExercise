@@ -26,7 +26,7 @@ for d in data:
         # inline initialization of dict to hold hits output
         # the hit_timestamp field is a string cast of the hit_ts variable calculated above, which is in datetime format
         # added information for join including the fullVisitorId and the visitId
-        hits_insert_dict = {'full_visitor_id': d['fullVisitorId'], 'visit_id': d['visitId'],
+        hits_insert_dict = {'uniq_visitor_id': d['fullVisitorId'] + d['visitId'],
                             'hit_number': hit['hitNumber'], 'type': hit['type'], 'hit_timestamp': str(hit_ts),
                             'page_path': hit['page']['pagePath'], 'page_title': hit['page']['pageTitle'],
                             'hostname': hit['page']['hostname']
@@ -40,3 +40,5 @@ with open('visits.json', 'w') as of_visits:
 
 with open('hits.json', 'w') as of_hits:
     ndjson.dump(hits, of_hits)
+
+
